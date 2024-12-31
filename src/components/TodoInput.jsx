@@ -1,36 +1,30 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+
+TodoInput.propTypes = {
+  handleAddTodos: PropTypes.func,
+  todoValue: PropTypes.string,
+  setTodoValue: PropTypes.func,
+};
 
 export default function TodoInput(props) {
-  const { handleAddTodo } = props;
-  const [todoValue, setTodoValue] = useState("");
-
-  const handleChange = (e) => {
-    setTodoValue(e.target.value);
-  };
-
+  const { handleAddTodos, todoValue, setTodoValue } = props;
   return (
     <header>
-      <div className="todo-input-container">
-        <input
-          type="text"
-          placeholder="Add a new todo..."
-          value={todoValue}
-          onChange={handleChange}
-        />
-        <button
-          onClick={() => {
-            handleAddTodo(todoValue);
-            setTodoValue("");
-          }}
-        >
-          Add
-        </button>
-      </div>
+      <input
+        value={todoValue}
+        onChange={(e) => {
+          setTodoValue(e.target.value);
+        }}
+        placeholder="Enter todo..."
+      />
+      <button
+        onClick={() => {
+          handleAddTodos(todoValue);
+          setTodoValue("");
+        }}
+      >
+        Add
+      </button>
     </header>
   );
 }
-
-TodoInput.propTypes = {
-  handleAddTodo: PropTypes.func.isRequired,
-};

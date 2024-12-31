@@ -2,23 +2,21 @@ import PropTypes from "prop-types";
 import TodoCard from "./TodoCard";
 
 export default function TodoList(props) {
-  const todos = props.todos;
+  const { todos } = props;
 
   return (
-    <div>
-      <ul className="main">
-        {todos.map((todo, todoIndex) => {
-          return (
-            <TodoCard key={todoIndex}>
-              <p>{todo}</p>
-            </TodoCard>
-          );
-        })}
-      </ul>
-    </div>
+    <ul className="main">
+      {todos.map((todo, todoIndex) => {
+        return (
+          <TodoCard {...props} key={todoIndex} index={todoIndex}>
+            <p>{todo}</p>
+          </TodoCard>
+        );
+      })}
+    </ul>
   );
 }
 
 TodoList.propTypes = {
-  todos: PropTypes.array.isRequired,
+  todos: PropTypes.array,
 };
