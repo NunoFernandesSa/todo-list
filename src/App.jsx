@@ -10,8 +10,6 @@ import TodoList from "./components/TodoList";
  * @description Main App component
  * @author {Nuno F}
  * @version {1.0.0}
- * @since {2024-01-01}
- * @param {Object} props - The component props
  * @param {Array} props.todos - The list of todos
  * @param {Function} props.setTodos - The function to set the list of todos
  * @param {String} props.todoValue - The value of the todo input
@@ -19,10 +17,18 @@ import TodoList from "./components/TodoList";
  * @param {Function} props.handleAddTodos - The function to add a todo
  * @param {Function} props.handleDeleteTodo - The function to delete a todo
  * @param {Function} props.handleEditTodo - The function to edit a todo
+ *
  */
 function App() {
   const [todos, setTodos] = useState([]);
   const [todoValue, setTodoValue] = useState("");
+
+  const today = new Date().toLocaleDateString("fr-FR", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   //
   // --- Functions ---
@@ -37,7 +43,7 @@ function App() {
   }
 
   function handleDeleteTodo(index) {
-    const newTodoList = todos.filter((todo, todoIndex) => {
+    const newTodoList = todos.filter((_, todoIndex) => {
       return todoIndex !== index;
     });
     setTodos(newTodoList);
@@ -54,7 +60,10 @@ function App() {
 
   return (
     <>
-      <h1>My Todo List</h1>
+      <div className="title-and-date">
+        <h1>My Todo List</h1>
+        <h2>{today}</h2>
+      </div>
 
       <TodoInput
         todoValue={todoValue}
